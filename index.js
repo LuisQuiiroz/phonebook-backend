@@ -1,49 +1,54 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 const app = express()
 
 let persons = [
     {
-        name: "Luis Perez",
+        name: "Gabriel Pérez",
         number: "33-11-55-99-33",
         id: 1
     },
     {
-        name: "Ivonne Garcia",
+        name: "Valentina García",
         number: "33-22-66-00-44",
         id: 2
     },
     {
-        name: "Paola Lopez",
+        name: "Esmeralda López",
         number: "33-33-77-11-55",
         id: 3
     },
     {
-        name: "Gaby Gomez",
+        name: "Gaby Gómez",
         number: "33-33-77-11-55",
         id: 4
     },
     {
-        name: "Carlos Gutierrez",
+        name: "Carlos Hernández",
         number: "33-33-77-11-55",
         id: 5
     }
 ]
-const requestLogger = (request, response, next) => {
-    console.log('Method:', request.method)
-    console.log('Path:  ', request.path)
-    console.log('Body:  ', request.body)
-    console.log('---')
-    next()
-}
+// const requestLogger = (request, response, next) => {
+//     console.log('Method:', request.method)
+//     console.log('Path:  ', request.path)
+//     console.log('Body:  ', request.body)
+//     console.log('---')
+//     next()
+// }
 
 app.use(express.json())//json-parser
 // Sin json-parser, la propiedad body no estaría definida. El json-parser funciona para que tome los datos JSON de una solicitud, los transforme en un objeto JavaScript y luego los adjunte a la propiedad body del objeto request antes de llamar al controlador de ruta.
 
 // middleware con información de la request
-app.use(requestLogger)
+// app.use(requestLogger)
 
+// cors
+app.use(cors())
+
+// morgan
 morgan.token('body', (req) => JSON.stringify(req.body))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
@@ -119,7 +124,7 @@ const unknownEndpoint = (request, response) => {
 // este middleware se usa para capturar solicitudes realizadas a rutas inexistentes.
 app.use(unknownEndpoint)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
