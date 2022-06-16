@@ -4,6 +4,8 @@ const cors = require('cors')
 
 const app = express()
 
+app.use(express.static('dist')) // lee lo que se encuentra en la carpeta dist(la parte del Frontend)
+
 let persons = [
     {
         name: "Gabriel Pérez",
