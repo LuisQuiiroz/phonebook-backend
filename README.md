@@ -14,3 +14,13 @@ https://polar-mountain-19321.herokuapp.com/
 
 ### node mongo.js <password> <namePerson> <numberPerson>
 
+## Establecer variables de entorno en .env
+
+### PORT
+
+### MONGODB_URI
+
+## Al hacer deploy a heroku establecer la conexión con mongo db
+
+### heroku config:set MONGODB_URI
+
